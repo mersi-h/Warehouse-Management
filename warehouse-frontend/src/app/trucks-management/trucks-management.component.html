@@ -1,0 +1,26 @@
+<p-toast></p-toast>
+<p-confirmDialog></p-confirmDialog>
+<br/>
+<p-button label="Add New Truck" icon="pi pi-plus" (click)="openNewTruckDialog()" styleClass="p-mb-3"></p-button>
+<br/><br/>
+<p-table [value]="trucks" [paginator]="true" [rows]="10">
+  <ng-template pTemplate="header">
+    <tr>
+      <th width="25%">Chassis Number</th>
+      <th width="25%">License Plate</th>
+      <th width="25%">Container Volume</th>
+      <th width="25%">Actions</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-truck>
+    <tr>
+      <td>{{ truck.chassisNumber }}</td>
+      <td>{{ truck.licensePlate }}</td>
+      <td>{{ truck.containerVolume }}</td>
+      <td style="display: flex;gap: 14px;text-align: center">
+        <button pButton icon="pi pi-pencil" class="p-button-rounded p-button-info" (click)="openEditTruckDialog(truck)"></button>
+        <button pButton icon="pi pi-trash" class="p-button-rounded p-button-danger" (click)="deleteTruck(truck.id)"></button>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>

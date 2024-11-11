@@ -1,0 +1,45 @@
+<p-panel>
+  <ng-template pTemplate="header">
+    <label>{{user.id ? 'Edit' : 'New'}} user </label>
+  </ng-template>
+
+  <ng-template pTemplate="content">
+    <div class="p-grid">
+      <div class="p-col-12">
+        <div class="title-label">Role<span style="color: red!important">*</span></div>
+        <p-dropdown  [options]="roleOptions" optionLabel="label" optionValue="value"
+                    [(ngModel)]="user.roles" placeholder="Select Role"
+                    [style]="{'width': '100%'}"></p-dropdown>
+      </div>
+      <div class="p-col-12">
+        <div class="title-label">Name<span style="color: red!important">*</span></div>
+        <input type="text" pInputText [(ngModel)]="user.name" [style]="{'width': '100%'}">
+      </div>
+      <div class="p-col-12">
+        <div class="title-label">Surname<span style="color: red!important">*</span></div>
+        <input type="text" pInputText [(ngModel)]="user.surname" [style]="{'width': '100%'}">
+      </div>
+      <div class="p-col-12">
+        <div class="title-label">Email<span style="color: red!important">*</span></div>
+        <input type="email" pInputText [(ngModel)]="user.email" [style]="{'width': '100%'}">
+      </div>
+      <div class="p-col-12" *ngIf="!isEdit">
+        <div class="title-label">Password<span style="color: red!important">*</span></div>
+        <input type="password" pInputText [(ngModel)]="user.password" [style]="{'width': '100%'}">
+      </div>
+
+    </div>
+
+
+  </ng-template>
+
+  <p-footer>
+    <div style="text-align: end">
+      <button style="margin-right: 0.3rem; background: #466FB5;border-color: #466FB5;box-shadow: #B5C5E1"
+              pButton label="Cancel" icon="pi pi-times" class="p-button-secondary" (click)="ref.close()"></button>
+      <button  label="Save" icon="pi pi-check"  type="button" pButton (click)="saveUser()"></button>
+    </div>
+  </p-footer>
+</p-panel>
+
+

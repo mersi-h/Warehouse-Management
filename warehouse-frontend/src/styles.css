@@ -1,0 +1,23 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~primeng/resources/themes/saga-blue/theme.css";
+
+/* PrimeNG core CSS */
+@import "~primeng/resources/primeng.min.css";
+
+/* PrimeFlex for layout styling */
+@import "~primeflex/primeflex.css";
+
+/* Global styling for the custom calendar size */
+.small-calendar .p-datepicker {
+  width: 180px;
+  font-size: 0.8rem;
+}
+
+.small-calendar .p-datepicker-header,
+.small-calendar .p-datepicker-calendar-container {
+  padding: 0.3rem;
+}
+
+.small-calendar .p-datepicker-calendar td {
+  padding: 0.2rem;
+}

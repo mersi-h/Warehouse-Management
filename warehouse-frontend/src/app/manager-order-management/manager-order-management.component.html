@@ -1,0 +1,50 @@
+<p-toast></p-toast>
+<p-confirmDialog></p-confirmDialog>
+<br/>
+<div>
+  <div class="title-label">Status</div>
+  <p-dropdown  [options]="statusOptions" optionLabel="label" optionValue="value"
+               (ngModelChange)="changeStatus($event)" [showClear]="true"
+               [(ngModel)]="selectedStatus" placeholder="Filter by Status"
+               [style]="{'width': '100%'}" ></p-dropdown>
+</div>
+<br/>
+<p-table [value]="ordersByStatus" [paginator]="true" [rows]="10">
+  <ng-template pTemplate="header">
+    <tr>
+      <th width="15%">Order Number</th>
+      <th width="15%">Status</th>
+      <th width="15%">User</th>
+      <th width="15%">Total Price</th>
+      <th width="15%">Submitted Date</th>
+      <th width="15%">Status message</th>
+      <th width="10%">Actions</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-order>
+    <tr>
+      <td>{{ order.orderNumber }}</td>
+      <td>{{ getStatus(order) }}</td>
+      <td>{{ order.user.name +' '+order.user.surname }}</td>
+      <td>{{ order.totalPrice | currency }}</td>
+      <td>{{ order.submittedDate | date: 'dd/MM/yyyy'}}</td>
+      <td>{{ order.declineReason }}</td>
+      <td style="display: flex;gap: 14px;text-align: center">
+        <button pButton icon="pi pi-eye" (click)="viewOrderDetails(order.orderNumber)"
+                  tooltip="View Details" >
+        </button>
+
+        <button *ngIf="order.status === 'APPROVED'" pButton icon="pi pi-calendar" label="Schedule"
+                (click)="openSheduleDialog(order)">
+        </button>
+        <button *ngIf="order.status === 'AWAITING_APPROVAL'" pButton icon="pi pi-check" tooltip="Approve"
+                  tooltipPosition="top" class="p-button-success" (click)="approveOrder(order)">
+        </button>
+
+        <button *ngIf="order.status === 'AWAITING_APPROVAL'" pButton icon="pi pi-times" tooltip="Decline"
+                  class="p-button-danger" (click)="openDeclineDialog(order)">
+        </button>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>

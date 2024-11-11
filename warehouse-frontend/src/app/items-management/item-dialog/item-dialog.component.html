@@ -1,0 +1,39 @@
+<p-panel>
+  <ng-template pTemplate="header">
+    <i class="pi pi-inventory"></i><label> {{item.id ? ' Edit' : 'New'}} item </label>
+  </ng-template>
+
+  <ng-template pTemplate="content">
+    <div class="p-grid">
+      <div class="p-col-12">
+        <div class="title-label">Item</div>
+        <input type="text" pInputText [(ngModel)]="item.itemName" [style]="{'width': '100%'}">
+      </div>
+      <br/>
+      <div class="p-col-12">
+        <div class="title-label">Quantity</div>
+        <input type="number" pInputText min="1" [(ngModel)]="item.quantity" [style]="{'width': '100%'}">
+      </div>
+      <br/>
+      <div class="p-col-12">
+        <div class="title-label">Volume Package</div>
+        <input type="number" pInputText min="0" [(ngModel)]="item.volumePackage" [style]="{'width': '100%'}">
+      </div>
+      <br/>
+      <div class="p-col-12">
+        <div class="title-label">Unit Price</div>
+        <input type="number" pInputText min="1" [(ngModel)]="item.unitPrice" [style]="{'width': '100%'}">
+      </div>
+    </div>
+  </ng-template>
+
+  <p-footer>
+    <div style="text-align: end">
+      <button style="margin-right: 0.3rem; background: #466FB5;border-color: #466FB5;box-shadow: #B5C5E1"
+              pButton label="Cancel" icon="pi pi-times" class="p-button-secondary" (click)="ref.close()"></button>
+      <button label="Save" icon="pi pi-check" type="button" pButton (click)="saveItem()"></button>
+    </div>
+  </p-footer>
+</p-panel>
+
+

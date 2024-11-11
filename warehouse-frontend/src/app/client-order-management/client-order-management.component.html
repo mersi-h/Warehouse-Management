@@ -1,0 +1,44 @@
+<p-toast></p-toast>
+<p-confirmDialog></p-confirmDialog>
+<br/>
+<p-button label="Add New Order" icon="pi pi-plus" (click)="openNewOrderDialog()" styleClass="p-mb-3"></p-button>
+<br/><br/>
+<div>
+  <div class="title-label">Status</div>
+  <p-dropdown  [options]="statusOptions" optionLabel="label" optionValue="value"
+               (ngModelChange)="changeStatus($event)" [showClear]="true"
+               [(ngModel)]="selectedStatus" placeholder="Filter by Status"
+               [style]="{'width': '100%'}" ></p-dropdown>
+</div>
+<br/>
+<p-table [value]="ordersByUserIdAndStatus" [paginator]="true" [rows]="10">
+  <ng-template pTemplate="header">
+    <tr>
+      <th width="18%">Order Number</th>
+      <th width="18%">Status</th>
+      <th width="18%">Total Price</th>
+      <th width="18%">Submitted Date</th>
+      <th width="18%">Status message</th>
+      <th width="10%">Actions</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-order>
+    <tr>
+      <td>{{ order.orderNumber }}</td>
+      <td>{{ getStatus(order) }}</td>
+      <td>{{ order.totalPrice | currency }}</td>
+      <td>{{ order.submittedDate | date: 'dd/MM/yyyy'}}</td>
+      <td>{{ order.declineReason }}</td>
+      <td style="display: flex;gap: 14px;text-align: center">
+        <button pButton icon="pi pi-eye" (click)="viewOrderDetails(order.orderNumber)"
+                tooltip="View Details" >
+        </button>
+        <button [disabled]="order.status!='CREATED' && order.status!='DECLINED'" label="Submit" pButton  class="p-button-label" (click)="submit(order)"></button>
+        <button [disabled]="order.status!='CREATED' && order.status!='DECLINED'" pButton icon="pi pi-pencil"
+                class="p-button-rounded p-button-info" (click)="openEditOrderDialog(order)"></button>
+        <button [disabled]="order.status==='FULFILLED' || order.status==='UNDER_DELIVERY' || order.status==='CANCELED'"
+                pButton icon="pi pi-times" class="p-button-rounded p-button-danger" (click)="cancelOrder(order)"></button>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>

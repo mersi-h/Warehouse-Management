@@ -1,0 +1,29 @@
+<p-panel>
+  <ng-template pTemplate="header">
+    <i class="pi pi-calendar"></i><label> Schedule Delivery </label>
+  </ng-template>
+
+  <ng-template pTemplate="content">
+    <div class="p-grid" style="width: 100%; display: flex">
+      <div class="p-col-6" style="width:50%">
+        <div class="title-label">Select Delivery Date</div>
+        <p-calendar [(ngModel)]="selectedDate" [disabledDates]="unavailableDates"
+                    [minDate]="today" [maxDate]="maxDate"></p-calendar>
+      </div>
+
+      <div class="p-col-6" style="width:50%">
+        <div class="title-label">Select Trucks</div>
+        <p-multiSelect [(ngModel)]="selectedTrucks" [style]="{'width':'50%'}" [options]="availableTrucks" optionLabel="licensePlate"
+                       placeholder="Choose trucks"></p-multiSelect>
+      </div>
+    </div>
+  </ng-template>
+  <p-footer>
+    <div style="text-align: end">
+      <button pButton label="Schedule" icon="pi pi-check" (click)="scheduleDelivery()"
+              [disabled]="!selectedDate || selectedTrucks.length === 0"></button>
+      <button pButton label="Cancel" icon="pi pi-times" class="p-button-secondary" (click)="ref.close()"
+              style="margin-left: 8px"></button>
+    </div>
+  </p-footer>
+</p-panel>

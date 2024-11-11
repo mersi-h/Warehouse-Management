@@ -1,0 +1,28 @@
+<p-toast></p-toast>
+<p-confirmDialog></p-confirmDialog>
+<br/>
+<p-button label="Add New User" icon="pi pi-plus" (click)="openNewUserDialog()" styleClass="p-mb-3"></p-button>
+<br/><br/>
+<p-table [value]="users" [paginator]="true" [rows]="10">
+  <ng-template pTemplate="header">
+    <tr>
+      <th width="20%">Name</th>
+      <th width="20%">Surname</th>
+      <th width="20%">Email</th>
+      <th width="20%">Role</th>
+      <th width="20%">Actions</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-user>
+    <tr>
+      <td>{{ user.name }}</td>
+      <td>{{ user.surname }}</td>
+      <td>{{ user.email }}</td>
+      <td>{{ getRole(user) }}</td>
+      <td style="display: flex;gap: 14px;text-align: center">
+        <button pButton icon="pi pi-pencil" class="p-button-rounded p-button-info" (click)="openEditUserDialog(user)"></button>
+        <button pButton icon="pi pi-trash" class="p-button-rounded p-button-danger" (click)="deleteUser(user.id)"></button>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>

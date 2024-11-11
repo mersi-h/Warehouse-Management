@@ -1,0 +1,7 @@
+.p-menubar {
+  background-color: #3f51b5; /* Customize color */
+  color: white;
+}
+.p-menubar .p-menuitem-link {
+  color: white;
+}

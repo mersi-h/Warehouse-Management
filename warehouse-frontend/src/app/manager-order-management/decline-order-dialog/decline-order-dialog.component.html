@@ -1,0 +1,18 @@
+<p-panel>
+  <ng-template pTemplate="header">
+    <label for="reason">Reason for Decline</label>
+  </ng-template>
+  <ng-template pTemplate="content">
+    <div class="p-grid">
+      <div class="p-col-12">
+        <textarea id="reason" [(ngModel)]="declineReason" rows="4" pInputTextarea [style]="{'width':'100%'}"></textarea>
+      </div>
+    </div>
+  </ng-template>
+  <p-footer>
+    <div style="text-align: end">
+      <button pButton label="Submit" (click)="submitDeclineReason()" class="p-button-danger"></button>
+      <button pButton label="Cancel" (click)="ref.close()" style="margin-left: 8px"></button>
+    </div>
+  </p-footer>
+</p-panel>

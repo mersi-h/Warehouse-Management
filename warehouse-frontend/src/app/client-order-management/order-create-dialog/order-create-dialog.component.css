@@ -1,0 +1,17 @@
+order-create-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 200px;
+}
+
+.button-group {
+  display: flex;
+  align-items: flex-end;
+}

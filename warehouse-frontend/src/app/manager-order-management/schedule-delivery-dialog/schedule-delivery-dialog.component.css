@@ -1,0 +1,30 @@
+/* Target the custom class on p-calendar */
+/*::ng-deep .p-calendar .p-datepicker .p-component {*/
+/*  padding:5px;*/
+/*  width:200px;*/
+/*}*/
+.container ::ng-deep p-calendar .ui-datapicker table td{
+  padding: 0 !important;
+}
+.container ::ng-deep p-calendar .ui-datapicker .ui-timepicker{
+  padding: 0 0 0 0 !important;
+}
+::ng-deep .p-datepicker .p-timepicker{
+  padding: 0 0 0 0 !important;
+}
+.container ::ng-deep p-calendar .ui-datapicker{
+  padding: 0 !important;
+}
+::ng-deep .p-datepicker{
+  padding: 0!important;     /* Reduce padding in the header and calendar container */
+
+}
+::ng-deep .p-datepicker .p-datepicker-header{
+  padding: 0.1rem;     /* Reduce padding in the header and calendar container */
+}
+::ng-deep .p-datapicker table th{
+  padding: 0!important;
+}
+::ng-deep .small-calendar .p-datepicker-calendar td {
+  padding: 0.2rem;     /* Reduce cell padding */
+}

@@ -1,0 +1,28 @@
+<p-toast></p-toast>
+
+<div class="login-container">
+  <p-card header="Login" class="login-card">
+    <div class="p-fluid">
+      <div class="p-field">
+        <label for="email">Email</label>
+        <input pInputText id="email" [(ngModel)]="logIn.email" type="text" placeholder="Enter your email" />
+      </div>
+      <div class="p-field">
+        <label for="password">Password</label>
+        <p-password id="password"
+          [(ngModel)]="logIn.password"
+          [toggleMask]="true"
+          placeholder="Enter your password">
+        </p-password>
+      </div>
+      <p-button label="Login" icon="pi pi-sign-in" (click)="onSignIn()"  class="p-button-lg p-button-success"></p-button>
+    </div>
+    <div>
+      <p><a routerLink="/forgot-password">Forgot your password?</a></p>
+
+      <p [style]="{'color':'red'}" *ngIf="loginMessage">{{ loginMessage }}</p>
+    </div>
+  </p-card>
+</div>
+
+
