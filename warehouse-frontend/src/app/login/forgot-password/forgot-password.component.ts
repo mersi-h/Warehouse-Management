@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {UserService} from "../../services/user.service";
 import {Router} from "@angular/router";
+import {error} from "@angular/compiler-cli/src/transformers/util";
 
 @Component({
   selector: 'app-forgot-password',
@@ -18,7 +19,6 @@ export class ForgotPasswordComponent implements OnInit {
     private authService: UserService,
     private router: Router
   ) {
-    // Initialize form with email field and required validator
     this.forgotPasswordForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]]
     });
@@ -27,19 +27,24 @@ export class ForgotPasswordComponent implements OnInit {
   onSubmit() {
     if (this.forgotPasswordForm.valid) {
       const email = this.forgotPasswordForm.value.email;
-      this.authService.forgotPassword(email).subscribe(
-        () => {
-          this.message = 'Password reset link has been sent to your email!';
+      this.authService.forgotPassword(email).subscribe({
+        next: (data) => {
+          this.message = data;
           setTimeout(() => {
             this.router.navigate(['/login']);
-          }, 3000); // Redirects to login page after 3 seconds
+          }, 3000);
         },
-        (error) => {
-          this.message = 'Error sending password reset email.';
+        error: (err) => {
+          if (err.error && err.error.error) {
+            this.message = err.error.error;
+          } else {
+            this.message = 'Error sending password reset email.';
+          }
         }
-      );
+      });
     }
   }
+
 
   ngOnInit(): void {
   }

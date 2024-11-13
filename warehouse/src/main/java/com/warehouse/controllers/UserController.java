@@ -7,11 +7,13 @@ import com.warehouse.dtos.OrderDto;
 import com.warehouse.dtos.UserRegistrationDTO;
 import com.warehouse.services.IUserService;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping(value = "api/users")
@@ -65,7 +67,7 @@ public class UserController {
     public ResponseEntity<String> forgotPassword(@RequestParam("email") String email) {
         try {
             userService.sendPasswordResetEmail(email);
-            return ResponseEntity.ok("Password reset email sent.");
+            return ResponseEntity.status(HttpStatus.OK).body("Password reset email sent.");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error sending password reset email.");
         }

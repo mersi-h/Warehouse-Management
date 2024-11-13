@@ -12,7 +12,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {AppRoutingModule} from "./app-routing.module";
 import {TokenStorageService} from "./services/token-storage.service";
 import {UserService} from "./services/user.service";
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import { AppConfigurationComponent } from './app-configuration/app-configuration.component';
 import { AccessDeniedComponent } from './access-denied/access-denied.component';
 import {ButtonModule} from "primeng/button";
@@ -101,7 +101,7 @@ import { ResetPasswordComponent } from './login/reset-password/reset-password.co
     TokenStorageService,
     UserService,
     MessageService,
-    ConfirmationService
+    ConfirmationService,
   ],
   bootstrap: [AppComponent]
 })

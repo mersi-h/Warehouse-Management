@@ -144,20 +144,16 @@ public class UserService implements IUserService {
             throw new RuntimeException("User not found.");
         }
 
-        // Generate a token (using JWT or UUID, depending on your use case)
         String token = generatePasswordResetToken();
 
-        // Save the token to the user's record
         user.setPasswordResetToken(token);
         userRepository.save(user);
 
-        // Send the email with the reset link
         String resetLink = passwordResetUrl + "?token=" + token;
         sendEmail(email, resetLink);
     }
 
     private String generatePasswordResetToken() {
-        // Generate a password reset token (could be JWT, UUID, etc.)
         return UUID.randomUUID().toString();
     }
 

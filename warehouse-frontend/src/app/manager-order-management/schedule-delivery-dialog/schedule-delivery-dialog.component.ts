@@ -6,6 +6,7 @@ import {DynamicDialogConfig, DynamicDialogRef} from "primeng/dynamicdialog";
 import {ScheduleDelivery} from "../../models/schedule-delivery";
 import {DeliverySchedulerService} from "../../services/delivery-scheduler.service";
 import {AdminSettingsService} from "../../services/admin-settings.service";
+import {MessageService} from "primeng/api";
 
 @Component({
   selector: 'app-schedule-delivery-dialog',
@@ -14,18 +15,19 @@ import {AdminSettingsService} from "../../services/admin-settings.service";
 })
 export class ScheduleDeliveryDialogComponent implements OnInit {
   selectedDate!: Date;
-  unavailableDates: Date[]=[];
+  unavailableDates: Date[] = [];
   selectedTrucks: Truck[] = [];
   availableTrucks: Truck[] = [];
   orderId?: bigint;
   today: Date;
-  maxDate: Date=new Date();
+  maxDate: Date = new Date();
 
   constructor(private truckService: TruckService,
               private deliveryScheduler: DeliverySchedulerService,
               public ref: DynamicDialogRef,
               private config: DynamicDialogConfig,
-              private adminSettingsService: AdminSettingsService) {
+              private adminSettingsService: AdminSettingsService,
+              private messageService: MessageService) {
     if (this.config.data.orderId) {
       this.orderId = this.config.data.orderId;
     }
@@ -41,7 +43,7 @@ export class ScheduleDeliveryDialogComponent implements OnInit {
         }));
     }
     this.truckService.getAllTrucks().subscribe(t => this.availableTrucks = t);
-    this.adminSettingsService.getDeliveryPeriod().subscribe(days=> {
+    this.adminSettingsService.getDeliveryPeriod().subscribe(days => {
       this.maxDate = new Date(this.today);
       this.maxDate.setDate(this.today.getDate() + days);
       console.log(this.maxDate)
@@ -51,14 +53,20 @@ export class ScheduleDeliveryDialogComponent implements OnInit {
   }
 
   scheduleDelivery() {
-    let schedulerDelivery : ScheduleDelivery= new ScheduleDelivery();
-    schedulerDelivery.orderId= this.orderId;
+    let schedulerDelivery: ScheduleDelivery = new ScheduleDelivery();
+    schedulerDelivery.orderId = this.orderId;
     schedulerDelivery.truckIds = this.selectedTrucks.filter(t => t.id !== undefined).map(t => t.id as bigint);
     schedulerDelivery.scheduledDate = this.selectedDate;
-    this.deliveryScheduler.scheduleDelivery(schedulerDelivery).subscribe(delivery=>
-    {
-      this.ref.close(delivery);
-    })
+    this.deliveryScheduler.scheduleDelivery(schedulerDelivery).subscribe(delivery => {
+        this.messageService.add({severity: 'success', summary: 'Success', detail: 'Scheduled delivery successfully.'});
+
+        this.ref.close(delivery);
+      },
+      error => {
+        this.messageService.add({severity: 'error', summary: 'Validation Error', detail: error.error.error});
+
+      }
+    )
   }
 
 

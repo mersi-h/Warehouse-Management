@@ -29,12 +29,12 @@ export class UserService {
 
   forgotPassword(email: string): Observable<any> {
     let params: HttpParams = new HttpParams().append('email', email);
-    return this.http.get(API_URL + 'forgot-password', { params });
+    return this.http.get<any>(API_URL + 'forgot-password', { params ,  responseType: 'text' as 'json'});
   }
   resetPassword(token: string, newPassword: string): Observable<any> {
     let params: HttpParams = new HttpParams().append('token', token)
       .append('new-pass', newPassword);
-    return this.http.get(API_URL + 'reset-password', { params });
+    return this.http.get(API_URL + 'reset-password', { params ,  responseType: 'text' as 'json'});
   }
   saveUser(user: User): Observable<User> {
     return this.http.post<User>(API_URL + 'add-user', user);
